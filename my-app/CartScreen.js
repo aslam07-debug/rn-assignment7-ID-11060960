@@ -33,6 +33,10 @@ const CartScreen = () => {
     }
   };
 
+  const getTotalCost = () => {
+    return cartItems.reduce((total, item) => total + item.price, 0);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Cart Items</Text>
@@ -44,7 +48,7 @@ const CartScreen = () => {
             <Image source={{ uri: item.address }} style={styles.image} />
             <View style={styles.itemDetails}>
               <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.price}>{item.price}</Text>
+              <Text style={styles.price}>${item.price}</Text>
             </View>
             <TouchableOpacity onPress={() => removeFromCart(index)} style={styles.removeIcon}>
               <Icon name="close-circle-outline" size={30} color="red" />
@@ -52,6 +56,9 @@ const CartScreen = () => {
           </View>
         )}
       />
+      <View style={styles.totalCostContainer}>
+        <Text style={styles.totalCostText}>Total Cost: ${getTotalCost().toFixed(2)}</Text>
+      </View>
     </View>
   );
 };
@@ -89,6 +96,16 @@ const styles = StyleSheet.create({
   },
   removeIcon: {
     padding: 5,
+  },
+  totalCostContainer: {
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  totalCostText: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 
