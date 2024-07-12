@@ -1,12 +1,27 @@
-import React from "react";
-import { StyleSheet, Text, View, Image } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Dress({ address, title, price }) {
+  const addToCart = async () => {
+    try {
+      const item = { address, title, price };
+      const storedCartItems = JSON.parse(await AsyncStorage.getItem('cart')) || [];
+      storedCartItems.push(item);
+      await AsyncStorage.setItem('cart', JSON.stringify(storedCartItems));
+      console.log('Item added to cart');
+    } catch (error) {
+      console.error('Error adding item to cart', error);
+    }
+  };
+
   return (
     <View style={styles.dressContainer}>
       <Image source={{ uri: address }} style={styles.image} />
-      <Icon name="add-circle-outline" size={33} color="#000" style={styles.icon} />
+      <TouchableOpacity onPress={addToCart} style={styles.icon}>
+        <Icon name="add-circle-outline" size={33} color="#000" />
+      </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>reversible angora cardigan</Text>
       <Text style={styles.price}>{price}</Text>
@@ -34,7 +49,7 @@ const styles = StyleSheet.create({
   title: {
     left: 3,
     fontWeight: 'bold',
-    width:150
+    width: 150,
   },
   description: {
     left: 3,

@@ -1,8 +1,8 @@
-// CustomDrawerContent.js
+
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
-import { Ionicons } from '@expo/vector-icons'; // If using Expo, otherwise use any icon library you prefer
+import { Ionicons } from '@expo/vector-icons'; 
 
 const CustomDrawerContent = (props) => {
   return (

@@ -42,7 +42,7 @@ export default function HomeScreen() {
         <View style={styles.grid}>
           {products.map((item) => (
             <Dress
-              address={item.image} // Assuming 'image' contains the URL of the product image
+              address={item.image} 
               price={item.price}
               title={item.title}
               key={item.id}
